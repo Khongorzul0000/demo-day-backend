@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// model VolunteerAttendee {
+//   id          String    @id @default(nanoid()) @map("_id")
+//   // user        User      @relation(fields: [userId], references: [id])
+//   userId      String
+//   volunteer   Volunteer @relation(fields: [volunteerId], references: [id])
+//   volunteerId String
+//   username    String
+//   password    String?
+//   email       String
+// }
+
+model VolunteerAttendee {
+  id          String    @id @default(nanoid()) @map("_id")
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  volunteer   Volunteer @relation(fields: [volunteerId], references: [id])
+  volunteerId String
+}
+
+model User {
+  id         String              @id @default(nanoid()) @map("_id")
+  username   String
+  password   String?
+  email      String
+  volunteers Volunteer[]
+  attendees  VolunteerAttendee[]
+}
+
+enum VolunteerCategory {
+  STUDY_HELP
+  CLEANING
+  ANIMAL
+  NATURE
+}
+
+model Volunteer {
+  id           String              @id @default(nanoid()) @map("_id")
+  name         String
+  where        String
+  when         String
+  description  String
+  neededPeople String
+  isDone       Boolean             @default(false)
+  leader       User?               @relation(fields: [leaderId], references: [id])
+  leaderId     String?
+  category     VolunteerCategory?
+  attendees    VolunteerAttendee[]
+}
