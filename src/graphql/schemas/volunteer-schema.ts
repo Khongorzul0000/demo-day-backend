@@ -18,6 +18,7 @@ export const volunteerTypeDefs = gql`
     isDone: Boolean!
     leader: User
     attendees: [User]
+    img: String!
   }
 
   input VolunteerCreateInput {

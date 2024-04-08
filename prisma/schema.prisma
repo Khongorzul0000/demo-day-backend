@@ -60,4 +60,5 @@ model Volunteer {
   leaderId     String?
   category     VolunteerCategory?
   attendees    VolunteerAttendee[]
+  img          String
 }

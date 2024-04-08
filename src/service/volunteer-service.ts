@@ -54,6 +54,7 @@ export const createVolunteer = async (input: Prisma.VolunteerUncheckedCreateInpu
     description: input.description,
     neededPeople: input.neededPeople,
     category: input.category,
+    img: input.img,
     leader: {
       connect: {
         id: input.leaderId,
@@ -66,7 +67,6 @@ export const createVolunteer = async (input: Prisma.VolunteerUncheckedCreateInpu
     });
     console.log(result);
     return result;
-    // if(result.)
   } catch (error) {
     console.error(error);
     throw new GraphQLError("error creating");
@@ -83,17 +83,6 @@ export const updateVolunteer = async (input: Prisma.VolunteerUpdateInput, id: st
   }
 };
 
-// export const deleteVolunteer = async (id: string) => {
-//   try {
-//     const result = await prisma.volunteer.delete({ where: { id } });
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//     throw new GraphQLError("error deleting");
-//   }
-// };
-
-//fix get single
 export const deleteVolunteer = async (id: string) => {
   try {
     const volunteerAttendees = await prisma.volunteerAttendee.findMany({
