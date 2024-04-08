@@ -18,7 +18,7 @@ export const volunteerTypeDefs = gql`
     isDone: Boolean!
     leader: User
     attendees: [User]
-    img: String!
+    img: String
   }
 
   input VolunteerCreateInput {
@@ -30,6 +30,7 @@ export const volunteerTypeDefs = gql`
     neededPeople: String!
     isDone: Boolean!
     leaderId: String!
+    img: String!
   }
 
   input VolunteerUpdateInput {
@@ -40,6 +41,7 @@ export const volunteerTypeDefs = gql`
     neededPeople: String!
     isDone: Boolean!
     category: Category!
+    img: String!
   }
 
   type Query {
