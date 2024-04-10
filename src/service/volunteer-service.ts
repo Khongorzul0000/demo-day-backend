@@ -27,8 +27,26 @@ export const getVolunteers = async () => {
 
 export const getVolunteer = async (id: string) => {
   try {
-    const result = await prisma.volunteer.findUnique({ where: { id } });
-    return result;
+    const result = await prisma.volunteer.findUnique({
+      where: {
+        id
+      },
+      include: {
+        leader: true,
+        attendees: { include: { user: true, volunteer: true } },
+      },
+    });
+
+    if (!result) {
+      throw new Error(`Volunteer with ID ${id} not found`);
+    }
+
+    const volunteer = {
+      ...result,
+      attendees: result.attendees.map((attendee) => attendee.user),
+    };
+
+    return volunteer;
   } catch (error) {
     console.error(error);
     throw new GraphQLError("error fetching");
