@@ -25,12 +25,12 @@ export const volunteerTypeDefs = gql`
     name: String!
     where: String!
     when: String!
-    category: Category!
+    category: Category
     description: String!
     neededPeople: String!
     isDone: Boolean!
     leaderId: String!
-    img: String!
+    img: String
   }
 
   input VolunteerUpdateInput {
